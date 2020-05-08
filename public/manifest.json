@@ -9,7 +9,16 @@
     "512": "logo512.png"
   },
   "browser_action": {
-        "default_popup": "index.html"
-    },
-    "content_security_policy": "script-src 'self' 'sha256-fJlVWAXl3uTlniOzPFBFCSHtrGnAoJNhK5F85AocBvs='; object-src 'self'"
+  },
+  "content_security_policy": "script-src 'self' 'sha256-fJlVWAXl3uTlniOzPFBFCSHtrGnAoJNhK5F85AocBvs='; object-src 'self'",
+  "content_scripts" : [
+    {
+      "matches": [ "<all_urls>" ],
+      "css": ["/static/css/main.css", "/static/css/content.css"],
+      "js": ["/static/js/0.chunk.js", "/static/js/content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["app/background.js"]
+  }
 }

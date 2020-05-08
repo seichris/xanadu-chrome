@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Context",
+  "author": "Chris",
+  "version": "1.0.0",
+  "description": "Add notes anywhere and share them via Ethereum.",
+  "icons": {
+    "192": "logo192.png",
+    "512": "logo512.png"
+  },
+  "browser_action": {
+        "default_popup": "index.html"
+    },
+    "content_security_policy": "script-src 'self' 'sha256-fJlVWAXl3uTlniOzPFBFCSHtrGnAoJNhK5F85AocBvs='; object-src 'self'"
+}

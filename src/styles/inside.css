@@ -1,8 +1,10 @@
-/* style elements inside iframe */
+/* style elements inside iframe
 
 .main {
    padding: 20px;
 }
-.main h1 {
+
+.main p {
     color: #000;
 }
+*/

@@ -2,24 +2,65 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Frame, { FrameContextConsumer }from 'react-frame-component';
-import "./styles/inside.css";
-import "./styles/outside.css";
+//import "./styles/content.css";
+//import "./styles/outside.css";
 import './styles/tailwind.css';
 import './styles/index.css';
+import Draggable from 'react-draggable';
+
+const blankState = {
+  comment: "",
+  rating: "",
+  deltaPosition: {
+        x: 0, y: 0
+      }
+};
 
 class Main extends React.Component {
+
+  state = blankState;
+
+  handleChange = event => {
+    this.setState(Object.assign({ [event.target.name]: event.target.value }));
+  };
+
+  handleDrag = (e, ui, deltaPosition) => {
+      const {x, y} = this.state.deltaPosition;
+      this.setState(Object.assign({ deltaPosition: { x: x + ui.deltaX, y: y + ui.deltaY } }));
+    };
+
+  onControlledDragStop = (e, position) => {
+      const {x, y} = position;
+      this.setState(Object.assign({ deltaPosition: {x, y}}));
+    };
+
   render() {
     return (
-        <Frame head={[<link type="text/css" rel="stylesheet" href={chrome.runtime.getURL("/static/css/content.css")} ></link>]}>
+        <Frame id="very-unique-iframe-name" head={[<link type="text/css" rel="stylesheet" href={chrome.runtime.getURL("/static/css/content.css")} ></link>]}>
           <FrameContextConsumer>
            {
            // Callback is invoked with iframe's window and document instances
               ({ document, window }) => {
                 // Render Children
                 return (
-                   <div className={'main p-8'}>
-                      <p className={'text-lg text-right text-gray-700'}>this should render new-comment-input</p>
-                      <p className="text-left text-gray-900">try tailwind</p>
+                   <div className="p-8 bg-white w-1/5 top-0 right-0 absolute shadow-lg bg-gray-300">
+                      <p className={'text-lg text-gray-900'}>add ya comment, ma boi</p>
+                      <Draggable
+                         axis="both"
+                         handle=".handle"
+                         defaultPosition={{x: 0, y: 0}}
+                         position={this.state.deltaPosition}
+                         //grid={[25, 25]}
+                         scale={1}
+                         onStart={this.handleStart}
+                         onDrag={this.handleDrag}
+                         onStop={this.onControlledDragStop}>
+                         <div>
+                           <div className="handle">what's your summary?</div>
+                           <div>Put text here</div>
+                           <div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>
+                         </div>
+                       </Draggable>
                    </div>
                 );
               }

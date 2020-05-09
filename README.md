@@ -23,3 +23,17 @@ settings page?
 - show all comments yes/no
 
 profile page?
+
+
+
+
+"content_scripts" : [
+  {
+    "matches": [ "<all_urls>" ],
+    "css": ["/static/css/main.css", "/static/css/content.css"],
+    "js": ["/static/js/0.chunk.js", "/static/js/content.js"]
+  }
+],
+"web_accessible_resources":[
+ "/static/css/content.css"
+],

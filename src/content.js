@@ -7,6 +7,17 @@ import Frame, { FrameContextConsumer }from 'react-frame-component';
 import './styles/tailwind.css';
 import './styles/index.css';
 import Draggable from 'react-draggable';
+import Eth from 'ethjs';
+import createMetaMaskProvider from 'metamask-extension-provider';
+const provider = createMetaMaskProvider();
+
+provider.on('error', (error) => {
+  // Failed to connect to MetaMask, fallback logic.
+})
+
+provider.sendAsync({
+  method: 'eth_requestAccounts',
+});
 
 const blankState = {
   comment: "",
@@ -15,6 +26,25 @@ const blankState = {
         x: 0, y: 0
       }
 };
+
+if (provider) {
+  console.log('provider detected', provider)
+  const eth = new Eth(provider)
+  console.log('MetaMask provider detected.')
+  eth.accounts()
+  .then((accounts) => {
+    console.log(`Detected MetaMask account ${accounts[0]}`)
+  })
+
+  provider.on('error', (error) => {
+    if (error && error.includes('lost connection')) {
+      console.log('MetaMask extension not detected.')
+    }
+  })
+
+} else {
+  console.log('MetaMask provider not detected.')
+}
 
 class Main extends React.Component {
 

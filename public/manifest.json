@@ -18,7 +18,7 @@
     {
       "matches": [ "<all_urls>" ],
       "css": ["/static/css/main.5f361e03.chunk.css"],
-      "js": ["/static/js/2.204b1f15.chunk.js", "/static/js/main.b06eb487.chunk.js", "/static/js/runtime-main.dd30ba9e.js"]
+      "js": ["/static/js/2.3da9cf68.chunk.js", "/static/js/main.ee56b124.chunk.js", "/static/js/runtime-main.dd30ba9e.js"]
     }
   ],
   "permissions": [

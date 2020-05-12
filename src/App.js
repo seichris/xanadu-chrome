@@ -3,6 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 import Draggable from 'react-draggable';
 
+import Eth from 'ethjs';
+import createMetaMaskProvider from 'metamask-extension-provider';
+const provider = createMetaMaskProvider();
+
+provider.on('error', (error) => {
+  // Failed to connect to MetaMask, fallback logic.
+})
+
+provider.sendAsync({
+  method: 'eth_requestAccounts',
+});
+
 const blankState = {
   comment: "",
   rating: "",
@@ -10,6 +22,36 @@ const blankState = {
         x: 0, y: 0
       }
 };
+
+
+
+
+
+
+if (provider) {
+  console.log('provider detected', provider)
+  const eth = new Eth(provider)
+  console.log('MetaMask provider detected.')
+  eth.accounts()
+  .then((accounts) => {
+    console.log(`Detected MetaMask account ${accounts[0]}`)
+  })
+
+  provider.on('error', (error) => {
+    if (error && error.includes('lost connection')) {
+      console.log('MetaMask extension not detected.')
+    }
+  })
+
+} else {
+  console.log('MetaMask provider not detected.')
+}
+
+
+
+
+
+
 
 
 class App extends React.Component {
@@ -32,7 +74,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" id="texttochange">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>

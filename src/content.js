@@ -1,5 +1,5 @@
 /*global chrome*/
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Frame, { FrameContextConsumer }from 'react-frame-component';
 //import "./styles/content.css";
@@ -8,6 +8,7 @@ import './styles/tailwind.css';
 import './styles/index.css';
 import Draggable from 'react-draggable';
 import Eth from 'ethjs';
+import NewComment from './newcomment.js';
 import createMetaMaskProvider from 'metamask-extension-provider';
 const provider = createMetaMaskProvider();
 
@@ -46,7 +47,7 @@ if (provider) {
   console.log('MetaMask provider not detected.')
 }
 
-class Main extends React.Component {
+export default class Main extends Component {
 
   state = blankState;
 
@@ -91,6 +92,7 @@ class Main extends React.Component {
                            <div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>
                          </div>
                        </Draggable>
+                       <NewComment />
                    </div>
                 );
               }

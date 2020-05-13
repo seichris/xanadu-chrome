@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 //import Box from "3box";
 import InputComments from './InputComments';
-//import ProfileHover from "profile-hover";
+import ProfileHover from "profile-hover";
 //import { ScaleLoader } from "react-spinners";
 import Draggable from 'react-draggable';
 import ReactStars from 'react-stars';
@@ -18,50 +18,28 @@ export default class ShowComments extends Component {
       this.props.getCommentsThread();
     };
 
-    state = {
-      show: false
-    };
-
-  switchShowHide= () => {
-          this.setState(prevState => {
-              return {
-                  show: !prevState.show
-              }
-          })
-      }
-
 render() {
      return (
        <div className="container relative">
-        <div className="items-center my-24 text-center">
+        <p className={'text-lg text-gray-900'}>Drag the note and drop your comment!</p>
+        <div className="items-center text-center">
           <div className="mx-auto">
             <p className="my-4">
-              { this.props.needsAWeb3Browser ?
+              { this.props.needsAWeb3Browser &&
                 <a href="https://metamask.io/download.html" rel="noopener noreferrer" target="_blank" className="underline">
-                  Install metamask to add your comment
+                  Install metamask first
                 </a>
-              :
-                <button onClick={this.switchShowHide} className="underline">
-                  {this.state.show ? "cancel" : "Add a note!"}
-                </button>
               }
+
+              {!this.props.thread && (
+                <div style={{ width: "100px", margin: "auto" }}>
+                  <p> loading 3box thread... </p>
+                </div>
+              )}
+              {this.props.thread && <InputComments savePost={this.savePost} />}
             </p>
            </div>
 
-
-
-           <div className={`text-center absolute w-full ${this.state.show ? "block" : "hidden"}`}>
-             <div className="landingpage-comments-modal mx-auto">
-
-             {!this.props.thread && (
-               <div style={{ width: "100px", margin: "auto" }}>
-                 <p> loading... </p>
-               </div>
-             )}
-             {this.props.thread && <InputComments savePost={this.savePost} />}
-
-           </div>
-         </div>
        </div>
 
        <div>
@@ -111,7 +89,7 @@ render() {
            </p>*/}
            {this.props.post.message.account && (
              <div className="pt-4">
-               {/*<p className="text-xs">Submitted by</p>
+               {/*
                  <ProfileHover
                    address={this.props.post.message.account}
                    showName={true}

@@ -185,7 +185,6 @@ export default class Main extends Component {
                 // Render Children
                 return (
                    <div className="p-8 bg-white w-1/5 top-0 right-0 absolute shadow-lg bg-gray-300">
-                      <p className={'text-lg text-gray-900'}>add a comment and drag drop it</p>
                        <ShowComments
                          accounts={this.state.myaccount}
                          thread={threadWithOrWithoutMetamask}

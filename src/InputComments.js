@@ -63,7 +63,7 @@ export default class InputComments extends Component {
         onDrag={this.handleDrag}
         onStop={this.onControlledDragStop}
       >
-          <div className="w-full mx-auto bg-white rounded">
+          <div className="w-full mx-auto bg-white rounded shadow">
             {/*<div className="handle">Drag here</div>*/}
             {/*<div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>*/}
             {!this.state.submitted && (
@@ -82,9 +82,9 @@ export default class InputComments extends Component {
                     value={this.state.rating}
                   />
                 </div>
-                <div className="mb-4">
+                <div>
                   <textarea
-                    className="w-full shadow-inner p-4 border-0"
+                    className="w-full shadow-inner p-4 border-0 relative"
                     placeholder="Add your comment."
                     rows="2"
                     value={this.state.comment}
@@ -93,10 +93,7 @@ export default class InputComments extends Component {
                     name="comment"
                     aria-describedby="commentText"
                   />
-                </div>
-
-                <div className="mb-6">
-                  <input type="submit" value="Submit" className="inline-block w-full py-4 px-8 leading-none text-white bg-indigo-500 hover:bg-indigo-600 rounded shadow" />
+                  <input type="submit" className="inline-block py-2 px-2 leading-none text-white bg-indigo-500 hover:bg-indigo-600 rounded shadow absolute bottom-0 right-0" value="Submit"/>
                 </div>
 
               </form>

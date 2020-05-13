@@ -1,40 +1,181 @@
 /*global chrome*/
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Frame, { FrameContextConsumer }from 'react-frame-component';
 //import "./styles/content.css";
 //import "./styles/outside.css";
 import './styles/tailwind.css';
 import './styles/index.css';
-import Draggable from 'react-draggable';
+import Eth from 'ethjs';
+import Box from "3box";
+import ShowComments from './ShowComments.js';
+import createMetaMaskProvider from 'metamask-extension-provider';
+const provider = createMetaMaskProvider();
 
-const blankState = {
-  comment: "",
-  rating: "",
-  deltaPosition: {
-        x: 0, y: 0
-      }
+const getThreeBox = async address => {
+  const profile = await Box.getProfile(address);
+  return profile;
 };
 
-class Main extends React.Component {
 
-  state = blankState;
+/*provider.on('error', (error) => {
+  // Failed to connect to MetaMask, fallback logic.
+})
 
-  handleChange = event => {
-    this.setState(Object.assign({ [event.target.name]: event.target.value }));
+provider.sendAsync({
+  method: 'eth_requestAccounts',
+});
+
+if (provider) {
+  console.log('provider detected', provider)
+  const eth = new Eth(provider)
+  console.log('MetaMask provider detected.')
+  eth.accounts()
+  .then((accounts) => {
+    console.log(`Detected MetaMask account ${accounts[0]}`)
+  })
+
+  provider.on('error', (error) => {
+    if (error && error.includes('lost connection')) {
+      console.log('MetaMask extension not detected.')
+    }
+  })
+
+} else {
+  console.log('MetaMask provider not detected.')
+}*/
+
+export default class Main extends Component {
+
+  state = {
+    needsAWeb3Browser: false
   };
 
-  handleDrag = (e, ui, deltaPosition) => {
-      const {x, y} = this.state.deltaPosition;
-      this.setState(Object.assign({ deltaPosition: { x: x + ui.deltaX, y: y + ui.deltaY } }));
-    };
+  async componentDidMount() {
+    provider.sendAsync({
+      method: 'eth_requestAccounts',
+    });
 
-  onControlledDragStop = (e, position) => {
-      const {x, y} = position;
-      this.setState(Object.assign({ deltaPosition: {x, y}}));
-    };
+    if (provider) {
+
+      //window.web3.autoRefreshOnNetworkChange = false;
+      console.log('provider detected', provider)
+      const eth = new Eth(provider)
+      console.log('MetaMask provider detected.')
+      const accounts = await eth.accounts()
+      .then((accounts) => {
+        console.log(`Detected MetaMask account ${accounts[0]}`);
+        const myaccount = accounts[0];
+        this.setState({ myaccount });
+        console.log(`Detected MetaMask account in state? ${this.state.myaccount}`);
+      })
+      this.setState({ accounts });
+      //console.log(`Detected MetaMask account in state outside of this function, after adding await? ${this.state.accounts}`);
+      //console.log(this.state.myaccount);
+      console.log(`Detected MetaMask account in state outside of this function? ${this.state.myaccount}`);
+
+      //const threeBoxProfile = await getThreeBox(this.state.myaccount);
+      const threeBoxProfile = await getThreeBox(this.state.myaccount);
+      this.setState({ threeBoxProfile });
+      console.log(`does it detect a threeBoxProfile? ${JSON.stringify(threeBoxProfile)}`);
+
+      const chris = "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu";
+      const box = await Box.openBox(this.state.myaccount, provider);
+      this.setState({ box });
+      console.log(`does it detect a threeBox box? ${box}`);
+      const currentURL = window.location.href;
+      const cleanCurrentURL = currentURL.replace(/\//g, "_");
+      console.log("window defined, all good");
+      console.log(cleanCurrentURL);
+      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
+      console.log(cleanerCurrentURL);
+      const space = await this.state.box.openSpace(cleanerCurrentURL);
+      this.setState({ space });
+      console.log(space);
+
+      const threadComments = await space.joinThread("xanadu_now_sh_comments", {
+        firstModerator: chris,
+        members: false
+      });
+      this.setState({ threadComments }, ()=>(this.getCommentsThread()));
+      console.log(threadComments);
+      /*this.setState({ needsAWeb3Browser: true });
+      const currentURL = window.location.href;
+      const cleanCurrentURL = currentURL.replace(/\//g, "_");
+      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
+      console.log("window undefined");
+      console.log(cleanerCurrentURL);
+      const threadCommentsThisURL = await Box.getThread(cleanerCurrentURL, 'xanadu_now_sh_comments', "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu", false );
+      this.setState({ threadCommentsThisURL });
+      console.log(threadCommentsThisURL);*/
+
+    } else {
+
+      this.setState({ needsAWeb3Browser: true });
+      const currentURL = window.location.href;
+      const cleanCurrentURL = currentURL.replace(/\//g, "_");
+      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
+      console.log("window undefined");
+      console.log(cleanerCurrentURL);
+      const threadCommentsThisURL = await Box.getThread(cleanerCurrentURL, 'xanadu_now_sh_comments', "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu", false );
+      this.setState({ threadCommentsThisURL });
+      console.log(threadCommentsThisURL);
+      /*window.web3.autoRefreshOnNetworkChange = false;
+      const accounts = await window.web3.enable();
+      this.setState({ accounts });
+
+      const threeBoxProfile = await getThreeBox(this.state.accounts[0]);
+      this.setState({ threeBoxProfile });
+
+      const chris = "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu";
+      const box = await Box.openBox(this.state.accounts[0], window.web3);
+      this.setState({ box });
+      const currentURL = window.location.href;
+      const cleanCurrentURL = currentURL.replace(/\//g, "_");
+      console.log("window defined, all good");
+      console.log(cleanCurrentURL);
+      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
+      console.log(cleanerCurrentURL);
+      const space = await this.state.box.openSpace(cleanerCurrentURL);
+      this.setState({ space });
+      console.log(space);
+
+      const threadComments = await space.joinThread("xanadu_now_sh_comments", {
+        firstModerator: chris,
+        members: false
+      });
+      this.setState({ threadComments }, ()=>(this.getCommentsThread()));
+      console.log(threadComments);*/
+
+    }
+  }
+
+  async getCommentsThread() {
+    if (!this.state.threadComments) {
+      console.error("comments thread not in react state");
+      return;
+    }
+    const comments = await this.state.threadComments.getPosts();
+    this.setState({comments});
+    await this.state.threadComments.onUpdate(async()=> {
+      const comments = await this.state.threadComments.getPosts();
+      this.setState({comments});
+    })
+  }
 
   render() {
+
+    let threadWithOrWithoutMetamask = 0;
+    let postsWithOrWithoutMetamask = 0;
+
+    if (this.state.needsAWeb3Browser) {
+      threadWithOrWithoutMetamask = this.state.threadCommentsThisURL;
+      postsWithOrWithoutMetamask = this.state.threadCommentsThisURL;
+    } else {
+      threadWithOrWithoutMetamask = this.state.threadComments;
+      postsWithOrWithoutMetamask = this.state.comments;
+    }
+
     return (
         <Frame id="very-unique-iframe-name" head={[<link type="text/css" rel="stylesheet" href={chrome.runtime.getURL("/static/css/content.css")} ></link>]}>
           <FrameContextConsumer>
@@ -44,23 +185,22 @@ class Main extends React.Component {
                 // Render Children
                 return (
                    <div className="p-8 bg-white w-1/5 top-0 right-0 absolute shadow-lg bg-gray-300">
-                      <p className={'text-lg text-gray-900'}>add ya comment, ma boi</p>
-                      <Draggable
-                         axis="both"
-                         handle=".handle"
-                         defaultPosition={{x: 0, y: 0}}
-                         position={this.state.deltaPosition}
-                         //grid={[25, 25]}
-                         scale={1}
-                         onStart={this.handleStart}
-                         onDrag={this.handleDrag}
-                         onStop={this.onControlledDragStop}>
-                         <div>
-                           <div className="handle">what's your summary?</div>
-                           <div>Put text here</div>
-                           <div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>
-                         </div>
-                       </Draggable>
+                      <p className={'text-lg text-gray-900'}>add a comment and drag drop it</p>
+                       <ShowComments
+                         accounts={this.state.myaccount}
+                         thread={threadWithOrWithoutMetamask}
+                         box={this.state.box}
+                         space={this.state.space}
+                         threadMembers={this.state.threadMembers}
+                         posts={postsWithOrWithoutMetamask}
+                         threeBoxProfile={this.state.threeBoxProfile}
+                         //getAppsThread={this.getAppsThread.bind(this)}
+                         getCommentsThread={this.getCommentsThread.bind(this)}
+                         usersAddress={
+                           this.state.myaccount ? this.state.myaccount : null
+                         }
+                         needsAWeb3Browser={this.state.needsAWeb3Browser}
+                       />
                    </div>
                 );
               }

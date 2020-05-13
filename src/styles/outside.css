@@ -2,6 +2,7 @@
 
 html {
   min-height: 100%;
+  height: auto !important;
   position: relative;
 }
 
@@ -15,4 +16,8 @@ body {
   position: absolute;
   top: 0;
   border: none;
+}
+
+#very-unique-naming-root {
+    z-index: 50;
 }

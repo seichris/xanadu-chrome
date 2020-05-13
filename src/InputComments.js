@@ -9,7 +9,7 @@ const blankState = {
         x: 0, y: 0
       }
 };
-export default class AppForm extends Component {
+export default class InputComments extends Component {
   state = blankState;
 
   handleChange = event => {
@@ -63,7 +63,7 @@ export default class AppForm extends Component {
         onDrag={this.handleDrag}
         onStop={this.onControlledDragStop}
       >
-          <div className="w-full max-w-sm mx-auto">
+          <div className="w-full mx-auto bg-white rounded">
             {/*<div className="handle">Drag here</div>*/}
             {/*<div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>*/}
             {!this.state.submitted && (

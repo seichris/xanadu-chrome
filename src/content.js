@@ -8,7 +8,7 @@ import './styles/tailwind.css';
 import './styles/index.css';
 import Eth from 'ethjs';
 import Box from "3box";
-import NewComment from './newcomment.js';
+import ShowComments from './ShowComments.js';
 import createMetaMaskProvider from 'metamask-extension-provider';
 const provider = createMetaMaskProvider();
 
@@ -82,7 +82,7 @@ export default class Main extends Component {
       const chris = "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu";
       const box = await Box.openBox(this.state.myaccount, provider);
       this.setState({ box });
-      console.log(`does it detect a threeBox box? ${JSON.stringify(box)}`);
+      console.log(`does it detect a threeBox box? ${box}`);
       const currentURL = window.location.href;
       const cleanCurrentURL = currentURL.replace(/\//g, "_");
       console.log("window defined, all good");
@@ -164,6 +164,18 @@ export default class Main extends Component {
   }
 
   render() {
+
+    let threadWithOrWithoutMetamask = 0;
+    let postsWithOrWithoutMetamask = 0;
+
+    if (this.state.needsAWeb3Browser) {
+      threadWithOrWithoutMetamask = this.state.threadCommentsThisURL;
+      postsWithOrWithoutMetamask = this.state.threadCommentsThisURL;
+    } else {
+      threadWithOrWithoutMetamask = this.state.threadComments;
+      postsWithOrWithoutMetamask = this.state.comments;
+    }
+
     return (
         <Frame id="very-unique-iframe-name" head={[<link type="text/css" rel="stylesheet" href={chrome.runtime.getURL("/static/css/content.css")} ></link>]}>
           <FrameContextConsumer>
@@ -173,8 +185,22 @@ export default class Main extends Component {
                 // Render Children
                 return (
                    <div className="p-8 bg-white w-1/5 top-0 right-0 absolute shadow-lg bg-gray-300">
-                      <p className={'text-lg text-gray-900'}>add ya comment, ma boi</p>
-                       <NewComment />
+                      <p className={'text-lg text-gray-900'}>add a comment and drag drop it</p>
+                       <ShowComments
+                         accounts={this.state.myaccount}
+                         thread={threadWithOrWithoutMetamask}
+                         box={this.state.box}
+                         space={this.state.space}
+                         threadMembers={this.state.threadMembers}
+                         posts={postsWithOrWithoutMetamask}
+                         threeBoxProfile={this.state.threeBoxProfile}
+                         //getAppsThread={this.getAppsThread.bind(this)}
+                         getCommentsThread={this.getCommentsThread.bind(this)}
+                         usersAddress={
+                           this.state.myaccount ? this.state.myaccount : null
+                         }
+                         needsAWeb3Browser={this.state.needsAWeb3Browser}
+                       />
                    </div>
                 );
               }

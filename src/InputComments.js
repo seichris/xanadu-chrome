@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import ReactStars from 'react-stars';
+import ReactStars from 'react-stars';
 import Draggable from 'react-draggable';
 
 const blankState = {
@@ -9,7 +9,7 @@ const blankState = {
         x: 0, y: 0
       }
 };
-export default class AppForm extends Component {
+export default class InputComments extends Component {
   state = blankState;
 
   handleChange = event => {
@@ -63,7 +63,7 @@ export default class AppForm extends Component {
         onDrag={this.handleDrag}
         onStop={this.onControlledDragStop}
       >
-          <div className="w-full max-w-sm mx-auto">
+          <div className="w-full mx-auto bg-white rounded">
             {/*<div className="handle">Drag here</div>*/}
             {/*<div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>*/}
             {!this.state.submitted && (
@@ -72,7 +72,7 @@ export default class AppForm extends Component {
                   <div className="mx-4">
                    How do your rate this site?
                   </div>
-                  {/*<ReactStars
+                  <ReactStars
                     count={5}
                     onChange={this.ratingChanged}
                     size={20}
@@ -80,7 +80,7 @@ export default class AppForm extends Component {
                     edit={true}
                     half={false}
                     value={this.state.rating}
-                  />*/}
+                  />
                 </div>
                 <div className="mb-4">
                   <textarea

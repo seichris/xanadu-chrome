@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 
 const blankState = {
   comment: "",
-  rating: "",
+  rating: 0,
   deltaPosition: {
         x: 0, y: 0
       }
@@ -35,8 +35,10 @@ export default class InputComments extends Component {
       deltaPosition: this.state.deltaPosition,
     });
 
-    this.setState(Object.assign({}, blankState, { submitted: true }));
-    console.log(this.state.submitted);
+    //this.setState(Object.assign({}, blankState, { submitted: true }));
+    this.setState(Object.assign({}, blankState, { deltaPosition: { x: 0, y: 0 } }));
+    let activeBox = document.querySelector(".activeBox");
+    activeBox.style.transform = "translate(0, 0)";
   };
 
 
@@ -52,61 +54,61 @@ export default class InputComments extends Component {
 
   render() {
     return (
-      <Draggable
-        //axis="x"
-        //handle=".handle"
-        defaultPosition={{x: 0, y: 0}}
-        position={this.deltaPosition}
-        //grid={[25, 25]}
-        scale={1}
-        onStart={this.handleStart}
-        onDrag={this.handleDrag}
-        onStop={this.onControlledDragStop}
-      >
-          <div className="w-full mx-auto bg-white rounded shadow">
-            {/*<div className="handle">Drag here</div>*/}
-            {/*<div>x: {this.state.deltaPosition.x.toFixed(0)}, y: {this.state.deltaPosition.y.toFixed(0)}</div>*/}
-            {!this.state.submitted && (
-              <form onSubmit={this.handleSubmit}>
-                <div className="py-4 flex flex-row items-center">
-                  <div className="mx-4">
-                   How do your rate this site?
+      <>
+        { this.props.needsAWeb3Browser ?
+          <>
+          <p> Seems like you don't have a web3 browser.
+          </p>
+          <a href="https://metamask.io/download.html" rel="noopener noreferrer" target="_blank" className="underline">
+            Install metamask to add your comment!
+          </a>
+          </>
+        :
+        <Draggable
+          //axis="x"
+          //handle=".handle"
+          defaultPosition={{x: 0, y: 0}}
+          position={this.deltaPosition}
+          //grid={[25, 25]}
+          scale={1}
+          onStart={this.handleStart}
+          onDrag={this.handleDrag}
+          onStop={this.onControlledDragStop}
+        >
+            <div className="w-full mx-auto bg-white activeBox rounded shadow">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="py-4 flex flex-row items-center">
+                    <div className="mx-4">
+                     How do your rate this site?
+                    </div>
+                    <ReactStars
+                      count={5}
+                      onChange={this.ratingChanged}
+                      size={20}
+                      color2={'#ffd700'}
+                      edit={true}
+                      half={false}
+                      value={this.state.rating}
+                    />
                   </div>
-                  <ReactStars
-                    count={5}
-                    onChange={this.ratingChanged}
-                    size={20}
-                    color2={'#ffd700'}
-                    edit={true}
-                    half={false}
-                    value={this.state.rating}
-                  />
-                </div>
-                <div>
-                  <textarea
-                    className="w-full shadow-inner p-4 border-0 relative"
-                    placeholder="Add your comment."
-                    rows="2"
-                    value={this.state.comment}
-                    onChange={this.handleChange}
-                    type="text"
-                    name="comment"
-                    aria-describedby="commentText"
-                  />
-                  <input type="submit" className="inline-block py-2 px-2 leading-none text-white bg-indigo-500 hover:bg-indigo-600 rounded shadow absolute bottom-0 right-0" value="Submit"/>
-                </div>
-
-              </form>
-            )}
-            {/*{this.state.submitted && <div className="jumbotron">
-                <h1>Thank you for submiting</h1>
-                <button className="inline-block w-full py-4 px-8 leading-none text-white bg-indigo-500 hover:bg-indigo-600 rounded shadow"  onClick={()=>(this.setState({submitted : false}))}>
-                  Add another comment
-                </button>
-              </div>
-            }*/}
-          </div>
-        </Draggable>
+                  <div>
+                    <textarea
+                      className="w-full shadow-inner p-4 border-0 relative"
+                      placeholder="Add your comment."
+                      rows="2"
+                      value={this.state.comment}
+                      onChange={this.handleChange}
+                      type="text"
+                      name="comment"
+                      aria-describedby="commentText"
+                    />
+                    <input type="submit" className="inline-block py-2 px-2 leading-none text-white bg-indigo-500 hover:bg-indigo-600 rounded shadow absolute bottom-0 right-0" value="Submit"/>
+                  </div>
+                </form>
+            </div>
+          </Draggable>
+          }
+        </>
         );
       }
 }

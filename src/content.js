@@ -17,34 +17,6 @@ const getThreeBox = async address => {
   return profile;
 };
 
-
-/*provider.on('error', (error) => {
-  // Failed to connect to MetaMask, fallback logic.
-})
-
-provider.sendAsync({
-  method: 'eth_requestAccounts',
-});
-
-if (provider) {
-  console.log('provider detected', provider)
-  const eth = new Eth(provider)
-  console.log('MetaMask provider detected.')
-  eth.accounts()
-  .then((accounts) => {
-    console.log(`Detected MetaMask account ${accounts[0]}`)
-  })
-
-  provider.on('error', (error) => {
-    if (error && error.includes('lost connection')) {
-      console.log('MetaMask extension not detected.')
-    }
-  })
-
-} else {
-  console.log('MetaMask provider not detected.')
-}*/
-
 export default class Main extends Component {
 
   state = {
@@ -52,13 +24,25 @@ export default class Main extends Component {
   };
 
   async componentDidMount() {
+      this.setState({ needsAWeb3Browser: true });
+      const currentURL = window.location.href;
+      const cleanCurrentURL = currentURL.replace(/\//g, "_");
+      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
+      console.log("window undefined");
+      console.log(cleanerCurrentURL);
+      const threadCommentsThisURL = await Box.getThread(cleanerCurrentURL, 'xanadu_now_sh_comments', "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu", false );
+      this.setState({ threadCommentsThisURL });
+      console.log(threadCommentsThisURL);
+  }
+
+  async askMetamask() {
     provider.sendAsync({
       method: 'eth_requestAccounts',
     });
 
     if (provider) {
-
       //window.web3.autoRefreshOnNetworkChange = false;
+      this.setState({ needsAWeb3Browser: false });
       console.log('provider detected', provider)
       const eth = new Eth(provider)
       console.log('MetaMask provider detected.')
@@ -99,53 +83,6 @@ export default class Main extends Component {
       });
       this.setState({ threadComments }, ()=>(this.getCommentsThread()));
       console.log(threadComments);
-      /*this.setState({ needsAWeb3Browser: true });
-      const currentURL = window.location.href;
-      const cleanCurrentURL = currentURL.replace(/\//g, "_");
-      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
-      console.log("window undefined");
-      console.log(cleanerCurrentURL);
-      const threadCommentsThisURL = await Box.getThread(cleanerCurrentURL, 'xanadu_now_sh_comments', "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu", false );
-      this.setState({ threadCommentsThisURL });
-      console.log(threadCommentsThisURL);*/
-
-    } else {
-
-      this.setState({ needsAWeb3Browser: true });
-      const currentURL = window.location.href;
-      const cleanCurrentURL = currentURL.replace(/\//g, "_");
-      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
-      console.log("window undefined");
-      console.log(cleanerCurrentURL);
-      const threadCommentsThisURL = await Box.getThread(cleanerCurrentURL, 'xanadu_now_sh_comments', "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu", false );
-      this.setState({ threadCommentsThisURL });
-      console.log(threadCommentsThisURL);
-      /*window.web3.autoRefreshOnNetworkChange = false;
-      const accounts = await window.web3.enable();
-      this.setState({ accounts });
-
-      const threeBoxProfile = await getThreeBox(this.state.accounts[0]);
-      this.setState({ threeBoxProfile });
-
-      const chris = "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu";
-      const box = await Box.openBox(this.state.accounts[0], window.web3);
-      this.setState({ box });
-      const currentURL = window.location.href;
-      const cleanCurrentURL = currentURL.replace(/\//g, "_");
-      console.log("window defined, all good");
-      console.log(cleanCurrentURL);
-      const cleanerCurrentURL = cleanCurrentURL.replace(/\./g, "_");
-      console.log(cleanerCurrentURL);
-      const space = await this.state.box.openSpace(cleanerCurrentURL);
-      this.setState({ space });
-      console.log(space);
-
-      const threadComments = await space.joinThread("xanadu_now_sh_comments", {
-        firstModerator: chris,
-        members: false
-      });
-      this.setState({ threadComments }, ()=>(this.getCommentsThread()));
-      console.log(threadComments);*/
 
     }
   }
@@ -195,6 +132,7 @@ export default class Main extends Component {
                          threeBoxProfile={this.state.threeBoxProfile}
                          //getAppsThread={this.getAppsThread.bind(this)}
                          getCommentsThread={this.getCommentsThread.bind(this)}
+                         askMetamask={this.askMetamask.bind(this)}
                          usersAddress={
                            this.state.myaccount ? this.state.myaccount : null
                          }

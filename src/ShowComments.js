@@ -18,6 +18,11 @@ export default class ShowComments extends Component {
       this.props.getCommentsThread();
     };
 
+  // i need a button to ask for metamask
+  openMetamask= () => {
+          this.props.askMetamask();
+        }
+
 render() {
      return (
        <div className="container relative">
@@ -25,32 +30,34 @@ render() {
         <div className="items-center text-center">
           <div className="mx-auto">
             <p className="my-4">
-              { this.props.needsAWeb3Browser &&
+              <button onClick={this.openMetamask} className="underline">
+                Got Metamask? Click here to open 3box Thread
+              </button>
+              {/*{ this.props.needsAWeb3Browser &&
                 <a href="https://metamask.io/download.html" rel="noopener noreferrer" target="_blank" className="underline">
                   Install metamask first
                 </a>
-              }
+              }*/}
 
               {!this.props.thread && (
-                <div style={{ width: "100px", margin: "auto" }}>
-                  <p> loading 3box thread... </p>
+                <div className="mx-auto text-gray-700">
+                  <p>
+                   Loading posts... You may have to sign MetaMask 3 times.
+                 </p>
                 </div>
               )}
-              {this.props.thread && <InputComments savePost={this.savePost} />}
+              {this.props.thread && <InputComments needsAWeb3Browser={this.props.needsAWeb3Browser} savePost={this.savePost} />}
             </p>
            </div>
 
        </div>
 
        <div>
-         {(!this.props.posts || this.props.posts.length < 1) && (
+         {/*{(!this.props.posts || this.props.posts.length < 1) && (
            <div className="mx-auto text-center text-gray-700 mb-12">
              <p> loading... </p>
-             <p>
-               loading posts... MetaMask will ask you to sign access 3 times.
-             </p>
            </div>
-         )}
+         )}*/}
          {this.props.posts &&
            this.props.posts.map((post, i) => {
              return (

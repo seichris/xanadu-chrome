@@ -154,11 +154,11 @@ render() {
            </p>
            {this.props.post.message.account && (
              <div className="pt-4">
-               {/*
+               
                  <ProfileHover
                    address={this.props.post.message.account}
                    showName={true}
-                 />*/}
+                 />
                <ReactStars
                  count={5}
                  size={20}

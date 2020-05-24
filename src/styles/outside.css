@@ -60,3 +60,452 @@ body {
   background-color: transparent;
   padding: 0 2px;
   }
+
+  .threeboxProfileHover__style_boxAddress {
+     background: transparent;
+     height: fit-content;
+     padding: 0px;
+     font-family: Arial, sans-serif;
+     position: relative;
+     display: block;
+     width: fit-content;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_boxAddress.threeboxProfileHover__style_tileStyle {
+     border: 1px solid #edf2fb;
+     background: white;
+     border-radius: 5px;
+  }
+   .threeboxProfileHover__style_boxAddressContentWrapper {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_boxAddressContentWrapper.threeboxProfileHover__style_boxAddressLink {
+     cursor: pointer;
+  }
+   .threeboxProfileHover__style_tileStyle .threeboxProfileHover__style_boxAddressContentWrapper {
+     max-width: calc(290px);
+     min-width: calc(182px);
+  }
+   .threeboxProfileHover__style_boxAddressContentWrapper {
+     max-width: calc(290px);
+  }
+   .threeboxProfileHover__style_boxAddressFull {
+     width: fit-content;
+  }
+   .threeboxProfileHover__style_boxAddressWrap {
+     display: block;
+     float: left;
+     position: relative;
+     font-family: Arial, sans-serif;
+     -webkit-font-smoothing: antialiased;
+     background-clip: padding-box;
+  }
+   .threeboxProfileHover__style_boxAddress .threeboxProfileHover__style_boxImg {
+     background: #074988;
+     height: 50px;
+     width: 50px;
+     border-radius: 50%;
+     overflow: hidden;
+  }
+   .threeboxProfileHover__style_boxAddress.threeboxProfileHover__style_tileStyle .threeboxProfileHover__style_boxImg {
+     border-radius: 5px 0px 0px 5px;
+  }
+   .threeboxProfileHover__style_boxAddress .threeboxProfileHover__style_boxImg img {
+     height: 100%;
+     width: 100%;
+     object-fit: cover;
+     background-color: white;
+  }
+   .threeboxProfileHover__style_boxShortAddress {
+     color: #636668;
+     font-size: 15px;
+     font-weight: 600;
+     letter-spacing: 0.015em;
+     display: block;
+     padding: 0 16px;
+     max-width: 200px;
+     text-overflow: ellipsis;
+     overflow: hidden;
+     white-space: nowrap;
+  }
+   .threeboxProfileHover__style_tileStyle .threeboxProfileHover__style_boxShortAddress {
+     min-width: 100px;
+  }
+   .threeboxProfileHover__style_openHover_mobile {
+     width: fit-content;
+     height: fit-content;
+     color: #b7bece;
+     padding: 0;
+     border: none;
+     background-color: transparent;
+  }
+   .threeboxProfileHover__style_tileStyle .threeboxProfileHover__style_openHover_mobile {
+     background-color: #f9f9f9;
+     border-left: 1px solid #edf2fb;
+     border-radius: 0 5px 5px 0;
+     width: 50px;
+     height: 50px;
+  }
+   .threeboxProfileHover__style_openHover_mobile svg {
+     height: 14px !important;
+     width: 14px !important;
+  }
+   .threeboxProfileHover__style_addressCopy {
+     position: relative;
+     color: #b7bece;
+     border-left: 1px solid #edf2fb;
+     padding: 9px 4px 4px 9px;
+     width: 16px;
+     font-size: 12px;
+     height: 20px;
+     display: inline-block;
+  }
+   .threeboxProfileHover__style_addressCopy:hover {
+     cursor: pointer;
+     color: #7c8aa7;
+  }
+   .threeboxProfileHover__style_addressCopy:active {
+     background-color: #f7f7fb;
+  }
+   .threeboxProfileHover__style_addressAndCheck svg {
+     margin-left: 6px;
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap {
+     height: fit-content;
+     width: fit-content;
+     position: absolute;
+     z-index: 2;
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_top {
+     padding-bottom: 20px;
+     bottom: 90%;
+     left: -10px;
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_bottom {
+     padding-top: 20px;
+     top: 90%;
+     left: -10px;
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_right {
+     padding-left: 20px;
+     top: calc(17%);
+     left: calc(95%);
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_left {
+     padding-right: 20px;
+     top: calc(17%);
+     right: calc(95%);
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverProfile {
+     border-radius: 10px;
+     border: 1px solid #edf2fb;
+     box-shadow: 0 3px 8px 0 rgba(87,87,87,0.15);
+     background: white;
+     color: #181F21;
+     width: 230px;
+     z-index: 1111;
+     display: none;
+     flex-direction: column;
+     justify-content: flex-start;
+     align-items: flex-start;
+     padding: 20px 20px 20px 20px;
+     position: relative;
+  }
+   .threeboxProfileHover__style_boxAddressWrap.isDesktop:hover .threeboxProfileHover__style_hoverWrap .threeboxProfileHover__style_hoverProfile {
+     display: flex;
+  }
+   .threeboxProfileHover__style_boxAddressWrap .threeboxProfileHover__style_hoverWrap.showHoverMobile .threeboxProfileHover__style_hoverProfile {
+     display: flex;
+     box-sizing: border-box;
+     min-width: 270px;
+  }
+   .threeboxProfileHover__style_hoverProfileEmpty {
+     padding: 20px;
+  }
+   .threeboxProfileHover__style_hoverProfile p {
+     letter-spacing: 0.4px;
+  }
+   .threeboxProfileHover__style_hoverProfile textarea {
+     font-size: 18px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_coverPicture {
+     position: absolute;
+     top: 0;
+     width: 100%;
+     height: 70px;
+     z-index: 1;
+     margin-left: -20px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_coverPicture_image {
+     min-width: 100%;
+     min-height: 70px;
+     max-width: 100%;
+     max-height: 70px;
+     object-fit: cover;
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+     background-color: #f5f5f5;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValue {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     width: 100%;
+     height: 18px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValue a {
+     text-decoration: none;
+     color: #487dec;
+     font-size: 14px;
+     width: 80%;
+     white-space: nowrap;
+  }
+   .threeboxProfileHover__style_hoverProfile p {
+     margin: 0;
+     color: #ababab;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValuePicture {
+     z-index: 2;
+     margin-top: 10px;
+     display: flex;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValuePicture .threeboxProfileHover__style_profileValuePicture_image {
+     background: white;
+     height: 60px;
+     width: 60px;
+     border-radius: 50%;
+     object-fit: cover;
+     margin-bottom: 14px;
+     border: 3px solid white;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_noProfileImgSpacer {
+     margin-top: 65px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileDescription .threeboxProfileHover__style_profileDescription_text {
+     font-size: 14px;
+     margin-top: 4px;
+     color: #949494;
+     line-height: 18px;
+     text-align: left;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValue .threeboxProfileHover__style_profileText {
+     padding-left: 6px;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     color: #487dec;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValue svg {
+     margin-left: 8px;
+     color: #487dec;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName {
+     letter-spacing: 1px;
+     width: 100%;
+     overflow: hidden;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName.threeboxProfileHover__style_noContent {
+     margin-bottom: 20px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName span {
+     margin-left: 5px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName svg {
+     margin-left: 8px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName .threeboxProfileHover__style_profileText {
+     text-decoration: none;
+     color: #181F21;
+     font-weight: 600;
+     font-size: 20px;
+     text-align: left;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileText p {
+     color: #487dec !important;
+     font-size: 14px !important;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName .threeboxProfileHover__style_profileText:hover {
+     text-decoration: underline;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueName .threeboxProfileHover__style_profileText:visited {
+     color: #181F21;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink {
+     font-size: 12px;
+     border-radius: 0px 0px 3px 3px;
+     color: #ababab;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+     position: relative;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink .threeboxProfileHover__style_boxLinkText {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+     transition: 0.3s all ease-in-out;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink .threeboxProfileHover__style_boxLinkText:hover {
+     color: #1168df !important;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink .threeboxProfileHover__style_boxLinkText:hover .threeboxProfileHover__style_logo {
+     opacity: 1 !important;
+     filter: #000000;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink .threeboxProfileHover__style_boxLinkText img {
+     margin-left: 12px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink .threeboxProfileHover__style_profileCheck {
+     position: absolute;
+     right: -16px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_logo {
+     opacity: 0.1 !important;
+     height: 18px;
+     width: 18px;
+     filter: #000000;
+     transition: 0.3s all ease-in-out;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink a {
+     color: #ababab !important;
+     font-weight: 300 !important;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkText {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkEmpty {
+     font-size: 12px;
+     text-align: center;
+     border-radius: 0px 0px 3px 3px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink a {
+     text-decoration: none;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLink svg {
+     color: #487dec;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkEmpty_text {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkEmpty a {
+     text-decoration: none;
+     color: #487dec;
+     font-weight: 600;
+     margin-right: 5px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkEmpty span {
+     color: #ababab;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_boxLinkEmpty svg {
+     color: #487dec;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileDetails {
+     margin: 24px 0;
+     width: 100%;
+     overflow: hidden;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_profileValueKey {
+     font-size: 12px;
+     width: 20%;
+     text-align: left;
+  }
+   .threeboxProfileHover__style_hoverProfile:after {
+     content: '';
+     position: absolute;
+     width: 10px;
+     height: 10px;
+     border-bottom: 1px solid #edf2fb;
+     border-right: 1px solid #edf2fb;
+     background: white;
+     z-index: 0;
+  }
+   .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_bottom .threeboxProfileHover__style_hoverProfile:after {
+     top: -6px;
+     left: 14%;
+     margin-left: -10px;
+     -moz-transform: rotate(225deg);
+     -webkit-transform: rotate(225deg);
+     transform: rotate(225deg);
+  }
+   .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_top .threeboxProfileHover__style_hoverProfile:after {
+     bottom: -6px;
+     left: 14%;
+     margin-left: -10px;
+     -moz-transform: rotate(45deg);
+     -webkit-transform: rotate(45deg);
+     transform: rotate(45deg);
+  }
+   .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_right .threeboxProfileHover__style_hoverProfile:after {
+     top: 37px;
+     left: -6px;
+     margin-top: -10px;
+     -moz-transform: rotate(135deg);
+     -webkit-transform: rotate(135deg);
+     transform: rotate(135deg);
+  }
+   .threeboxProfileHover__style_hoverWrap.threeboxProfileHover__style_left .threeboxProfileHover__style_hoverProfile:after {
+     top: 37px;
+     right: -6px;
+     margin-top: -10px;
+     -moz-transform: rotate(315deg);
+     -webkit-transform: rotate(315deg);
+     transform: rotate(315deg);
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_addressAndCheck {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     width: fit-content;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_addressWrapper {
+     background-color: #f9f9f9;
+     padding: 4px 6px;
+     border-radius: 3px;
+     cursor: pointer;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_addressWrapper img {
+     width: 13px;
+     height: 13px;
+     opacity: 0.3;
+     margin-right: 6px;
+  }
+   .threeboxProfileHover__style_hoverProfile .threeboxProfileHover__style_address {
+     font-size: 12px;
+     color: #ababab;
+  }
+   .threeboxProfileHover__style_loadingText {
+     text-align: center;
+     padding: 2px;
+     font-size: 13px;
+  }
+   .threeboxProfileHover__style_noMargin {
+     margin: 0 !important;
+  }
+   .threeboxProfileHover__style_onClickOutsideMobile {
+     display: flex;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 1;
+  }

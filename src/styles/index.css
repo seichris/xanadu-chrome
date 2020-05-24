@@ -27,3 +27,41 @@ html {
   height: 100%;
   border: none;
 }
+
+.upvoteIcon {
+    background-color: #4a5568;
+    /*-webkit-mask: url(./../ArrowUp.svg) no-repeat center;
+    mask: url(./../ArrowUp.svg) no-repeat center;*/
+}
+
+.upvoteIcon:hover {
+    background-color: #7193ff;
+}
+
+.upvoteIcon.upVoted {
+    background-color: #7193ff;
+}
+
+.downvoteIcon {
+    background-color: #4a5568;
+    /*-webkit-mask: url(./../ArrowDown.svg) no-repeat center;
+    mask: url(./../ArrowDown.svg) no-repeat center;*/
+}
+
+.downvoteIcon:hover {
+    background-color: #ff4501;
+}
+
+.downvoteIcon.downVoted {
+    background-color: #ff4501;
+}
+
+.comment_vote {
+    margin: auto;
+}
+
+.vote_btn {
+  border: none;
+  background-color: transparent;
+  padding: 0 2px;
+  }

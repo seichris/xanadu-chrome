@@ -79,7 +79,7 @@ export default class InputComments extends Component {
                 <form onSubmit={this.handleSubmit}>
                   <div className="py-4 flex flex-row items-center">
                     <div className="mx-4">
-                     How do your rate this site?
+                     Rate this site:
                     </div>
                     <ReactStars
                       count={5}

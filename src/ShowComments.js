@@ -18,6 +18,12 @@ export default class ShowComments extends Component {
       this.props.getCommentsThread();
     };
 
+  editPost = async voteData => {
+        voteData.account = this.props.accounts[0];
+        await this.props.thread.post(voteData);
+        this.props.getCommentsThread();
+      };
+
   // i need a button to ask for metamask
   openMetamask= () => {
           this.props.askMetamask();
@@ -68,7 +74,12 @@ render() {
                    space={this.props.space}
                    box={this.props.box}
                    usersAddress={this.props.usersAddress}
-                   i={i} />
+                   needsAWeb3Browser={this.props.needsAWeb3Browser}
+                   editPost={this.editPost}
+                   accounts={this.props.accounts}
+                   thread={this.props.thread}
+                   getCommentsThread={this.props.getCommentsThread.bind(this)}
+                   />
              );
            })}
        </div>
@@ -79,21 +90,68 @@ render() {
  }
 
  class CommentCard extends Component {
+
+   state = {
+     voteSum: 0,
+   };
+
+   editPost = async voteData => {
+       voteData.account = this.props.accounts[0];
+       voteData.comment = this.props.post.message.comment;
+       voteData.deltaPosition = this.props.post.message.deltaPosition;
+       voteData.rating = this.props.post.message.rating;
+       const voteSumPrevious = this.props.post.message.voteSum ? this.props.post.message.voteSum : 0;
+       voteData.voteSum = this.state.voteSum + voteSumPrevious;
+       await this.props.thread.deletePost(this.props.post.postId);
+       await this.props.thread.post(voteData);
+       await this.props.getCommentsThread();
+       console.log(this.props.post.message);
+     };
+
+   upvote = () => {
+     //console.log(`${this.state.voteSum} voteSum in state before upvote`);
+     this.state.voteSum = 1;
+     //console.log(`${this.state.voteSum} voteSum in state after upvote`);
+     this.editPost({
+       voteSum: this.state.voteSum
+     });
+   };
+
+   downvote = () => {
+     this.state.voteSum = -1;
+     this.editPost({
+       voteSum: this.state.voteSum
+     });
+   };
+
    render(){
      return (
      <div className="h-0">
        <Draggable defaultPosition={this.props.post.message.deltaPosition}>
        <div className="comments-box-landing bg-white rounded shadow flex flex-col mx-auto items-center">
+        <div className="relative flex flex-row" style={{ padding: "20px" }}>
+          { !this.props.needsAWeb3Browser &&
+          <div className="flex flex-col">
+            <div className="comment_vote">
+              <button className="vote_btn vote_btn-middle" onClick={this.upvote}>
+              <div className={`upvoteIcon h-4 w-4 ${this.state.voteSum > 0 ? "upVoted" : ""}`}></div>
+              {/*<img src={arrowUp} alt="Upvote" width="50" className={`vote_icon upvote ${this.voted ? "voted" : ""}`}/>*/}
+              </button>
+              {/*<div className={`text-center ${countClass}`}>{count}</div>
+              <p className="text-center text-xs text-gray-500">{this.state.voteSum}</p>*/}
+              <p className="text-center text-xs text-gray-500">{this.props.post.message.voteSum}</p>
+              <button className="vote_btn" onClick={this.downvote}>
+              {/*<img src={arrowDown} alt="Downvote" width="50" className={`vote_icon downvote ${this.voted ? "voted" : ""}`}/>*/}
+              <div className={`downvoteIcon h-4 w-4 ${this.state.voteSum < 0 ? "downVoted" : ""}`}></div>
+              </button>
+            </div>
+          </div>
+          }
+
          <div className="relative" style={{ padding: "20px" }}>
            <p>
              {this.props.post.message.comment ? this.props.post.message.comment : "unknown"}
            </p>
-           {/*<p>
-             {`${this.props.post.message.rating} stars` ? `${this.props.post.message.rating} stars` : "unknown"}
-           </p>*/}
-           {/*<p className="text-xs text-gray-500">
-             Position: x: {this.props.post.message.deltaPosition.x ? this.props.post.message.deltaPosition.x : "unknown"}, y: {this.props.post.message.deltaPosition.y ? this.props.post.message.deltaPosition.y : "unknown"}
-           </p>*/}
            {this.props.post.message.account && (
              <div className="pt-4">
                {/*
@@ -112,6 +170,7 @@ render() {
              </div>
            )}
          </div>
+       </div>
        </div>
        </Draggable>
      </div>)

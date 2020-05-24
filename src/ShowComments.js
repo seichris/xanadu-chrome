@@ -37,7 +37,7 @@ render() {
           <div className="mx-auto">
             <p className="my-4">
               <button onClick={this.openMetamask} className="underline">
-                Got Metamask? Click here to open 3box Thread
+                Click here to open 3box Thread
               </button>
               {/*{ this.props.needsAWeb3Browser &&
                 <a href="https://metamask.io/download.html" rel="noopener noreferrer" target="_blank" className="underline">
@@ -48,7 +48,7 @@ render() {
               {!this.props.thread && (
                 <div className="mx-auto text-gray-700">
                   <p>
-                   Loading posts... You may have to sign MetaMask 3 times.
+                   Loading posts...
                  </p>
                 </div>
               )}
@@ -129,7 +129,7 @@ render() {
      <div className="h-0">
        <Draggable defaultPosition={this.props.post.message.deltaPosition}>
        <div className="comments-box-landing bg-white rounded shadow flex flex-col mx-auto items-center">
-        <div className="relative flex flex-row" style={{ padding: "20px" }}>
+        <div className="relative flex flex-row">
           { !this.props.needsAWeb3Browser &&
           <div className="flex flex-col">
             <div className="comment_vote">

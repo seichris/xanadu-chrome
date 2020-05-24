@@ -55,15 +55,6 @@ export default class InputComments extends Component {
   render() {
     return (
       <>
-        { this.props.needsAWeb3Browser ?
-          <>
-          <p> Seems like you don't have a web3 browser.
-          </p>
-          <a href="https://metamask.io/download.html" rel="noopener noreferrer" target="_blank" className="underline">
-            Install metamask to add your comment!
-          </a>
-          </>
-        :
         <Draggable
           //axis="x"
           //handle=".handle"
@@ -107,7 +98,6 @@ export default class InputComments extends Component {
                 </form>
             </div>
           </Draggable>
-          }
         </>
         );
       }

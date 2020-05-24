@@ -6,8 +6,10 @@ import Frame, { FrameContextConsumer }from 'react-frame-component';
 //import "./styles/outside.css";
 import './styles/tailwind.css';
 import './styles/index.css';
-import Eth from 'ethjs';
+//import Eth from 'ethjs';
 import Box from "3box";
+import Portis from '@portis/web3';
+import Web3 from 'web3';
 import ShowComments from './ShowComments.js';
 import createMetaMaskProvider from 'metamask-extension-provider';
 const provider = createMetaMaskProvider();
@@ -17,6 +19,9 @@ const getThreeBox = async address => {
   return profile;
 };
 
+const portis = new Portis('6cf6865e-0e78-4633-ba0d-ba4e3d96416c', 'mainnet');
+const web3 = new Web3(portis.provider);
+
 export default class Main extends Component {
 
   state = {
@@ -24,6 +29,9 @@ export default class Main extends Component {
   };
 
   async componentDidMount() {
+    portis.onLogin(() => {
+      console.log("Logged in!");
+    });
       this.setState({ needsAWeb3Browser: true });
       const currentURL = window.location.href;
       const cleanCurrentURL = currentURL.replace(/\//g, "_");
@@ -36,35 +44,20 @@ export default class Main extends Component {
   }
 
   async askMetamask() {
-    provider.sendAsync({
-      method: 'eth_requestAccounts',
-    });
 
-    if (provider) {
       //window.web3.autoRefreshOnNetworkChange = false;
       this.setState({ needsAWeb3Browser: false });
-      console.log('provider detected', provider)
-      const eth = new Eth(provider)
-      console.log('MetaMask provider detected.')
-      const accounts = await eth.accounts()
-      .then((accounts) => {
-        console.log(`Detected MetaMask account ${accounts[0]}`);
-        const myaccount = accounts[0];
-        this.setState({ myaccount });
-        console.log(`Detected MetaMask account in state? ${this.state.myaccount}`);
-      })
+      const accounts = await web3.eth.getAccounts();
       this.setState({ accounts });
-      //console.log(`Detected MetaMask account in state outside of this function, after adding await? ${this.state.accounts}`);
-      //console.log(this.state.myaccount);
-      console.log(`Detected MetaMask account in state outside of this function? ${this.state.myaccount}`);
+      console.log(`Detected Portis account ${accounts[0]}`);
 
       //const threeBoxProfile = await getThreeBox(this.state.myaccount);
-      const threeBoxProfile = await getThreeBox(this.state.myaccount);
+      const threeBoxProfile = await getThreeBox(accounts[0]);
       this.setState({ threeBoxProfile });
       console.log(`does it detect a threeBoxProfile? ${JSON.stringify(threeBoxProfile)}`);
 
       const chris = "did:3:bafyreiefwktffgtt75edstz3kwcijfqsviv33okgciioreuzpari3lnqyu";
-      const box = await Box.openBox(this.state.myaccount, provider);
+      const box = await Box.openBox(accounts[0], web3.currentProvider);
       this.setState({ box });
       console.log(`does it detect a threeBox box? ${box}`);
       const currentURL = window.location.href;
@@ -83,8 +76,6 @@ export default class Main extends Component {
       });
       this.setState({ threadComments }, ()=>(this.getCommentsThread()));
       console.log(threadComments);
-
-    }
   }
 
   async getCommentsThread() {
@@ -123,7 +114,7 @@ export default class Main extends Component {
                 return (
                    <div className="p-8 bg-white w-1/5 top-0 right-0 absolute shadow-lg bg-gray-300">
                        <ShowComments
-                         accounts={this.state.myaccount}
+                         accounts={this.state.accounts}
                          thread={threadWithOrWithoutMetamask}
                          box={this.state.box}
                          space={this.state.space}
@@ -134,7 +125,7 @@ export default class Main extends Component {
                          getCommentsThread={this.getCommentsThread.bind(this)}
                          askMetamask={this.askMetamask.bind(this)}
                          usersAddress={
-                           this.state.myaccount ? this.state.myaccount : null
+                           this.state.accounts ? this.state.accounts : null
                          }
                          needsAWeb3Browser={this.state.needsAWeb3Browser}
                        />

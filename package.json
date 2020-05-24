@@ -5,6 +5,7 @@
   "dependencies": {
     "3box": "^1.18.1",
     "@babel/core": "7.9.0",
+    "@portis/web3": "^2.0.0-beta.55",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -63,6 +64,7 @@
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
+    "web3": "^1.2.8",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
@@ -71,7 +73,7 @@
   "scripts": {
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "start": "npm run build:style && react-scripts start",
-    "build": "node scripts/build.js",
+    "build": "node --max_old_space_size=8000 scripts/build.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {

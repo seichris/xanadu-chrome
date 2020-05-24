@@ -128,6 +128,7 @@ export default class Main extends Component {
                            this.state.accounts ? this.state.accounts : null
                          }
                          needsAWeb3Browser={this.state.needsAWeb3Browser}
+                         web3={web3}
                        />
                    </div>
                 );

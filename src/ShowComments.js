@@ -158,7 +158,7 @@ render() {
           </div>
           }
 
-         <div className="relative" style={{ padding: "20px" }}>
+         <div className="relative" style={{ padding: "10px" }}>
            <p>
              {this.props.post.message.comment ? this.props.post.message.comment : "unknown"}
            </p>
